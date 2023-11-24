@@ -1,17 +1,12 @@
 package lotto.model
 
-class Lottoes(lottoTicketCount: Int) {
-    private var lottoGenerator: LottoGenerator = LottoGenerator()
-
-    var lottoes: MutableList<Lotto> = mutableListOf()
-    private var lottoesResult: MutableMap<WinningRank, Int> =
+class Lottoes(
+    lottoTicketCount: Int,
+    lottoGenerator: LottoesGenerator = LottoesGeneratorImp(lottoTicketCount)
+) {
+    private val lottoes: List<Lotto> = lottoGenerator.generateLottoes()
+    private val lottoesResult: MutableMap<WinningRank, Int> =
         WinningRank.values().associateWith { 0 }.toMutableMap()
-
-    init {
-        for (i in 1..lottoTicketCount) {
-            lottoes.add(lottoGenerator.generateLotto())
-        }
-    }
 
     fun calculatedLottoesResult(
         winningNumbers: Set<Int>,
