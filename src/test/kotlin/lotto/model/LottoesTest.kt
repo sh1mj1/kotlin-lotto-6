@@ -4,16 +4,14 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class LottoesTest {
-
     private lateinit var expectedLottoes: Map<WinningRank, Int>
-
 
     @Test
     fun `구매한 모든 로또의 당첨 결과를 Map 의 형태로 리턴한다`() {
         // given
         val lottoes = Lottoes(6000)
-        lottoes.userNumbers = setOf(1, 2, 3, 4, 5, 6)
-        lottoes.bonusNumber = 7
+        val winningNumbers = setOf(1, 2, 3, 4, 5, 6)
+        val bonusNumber = 7
         lottoes.lottoes = mutableListOf(
             Lotto(listOf(1, 2, 3, 4, 5, 6)),
             Lotto(listOf(1, 2, 3, 4, 5, 7)),
@@ -24,7 +22,7 @@ class LottoesTest {
         )
 
         // when
-        val result = lottoes.calculateLottoesResult()
+        val result = lottoes.calculateLottoesResult(winningNumbers, bonusNumber)
         expectedLottoes = mapOf(
             WinningRank.FIRST to 1,
             WinningRank.SECOND to 1,
@@ -42,8 +40,8 @@ class LottoesTest {
     fun `구매한 모든 로또의 당첨 수익을 계산한다`() {
         // given
         val lottoes = Lottoes(6000)
-        lottoes.userNumbers = setOf(1, 2, 3, 4, 5, 6)
-        lottoes.bonusNumber = 7
+        val winningNumbers = setOf(1, 2, 3, 4, 5, 6)
+        val bonusNumber = 7
         lottoes.lottoes = mutableListOf(
             Lotto(listOf(1, 2, 3, 4, 5, 6)),
             Lotto(listOf(1, 2, 3, 4, 5, 7)),
@@ -52,7 +50,7 @@ class LottoesTest {
             Lotto(listOf(11, 22, 33, 17, 27, 37)),
             Lotto(listOf(11, 22, 33, 8, 27, 9))
         )
-        lottoes.calculateLottoesResult()
+        lottoes.calculateLottoesResult(winningNumbers, bonusNumber)
 
         // when
         val result = lottoes.calculateTotalProfit()
@@ -65,8 +63,8 @@ class LottoesTest {
     fun `구매한 모든 로또의 수익률을 계산한다`() {
         // given
         val lottoes = Lottoes(6000)
-        lottoes.userNumbers = setOf(1, 2, 3, 4, 5, 6)
-        lottoes.bonusNumber = 7
+        val winningNumbers = setOf(1, 2, 3, 4, 5, 6)
+        val bonusNumber = 7
         lottoes.lottoes = mutableListOf(
             Lotto(listOf(1, 2, 3, 4, 5, 6)),
             Lotto(listOf(1, 2, 3, 4, 5, 7)),
@@ -75,7 +73,7 @@ class LottoesTest {
             Lotto(listOf(11, 22, 33, 17, 27, 37)),
             Lotto(listOf(11, 22, 33, 8, 27, 9))
         )
-        lottoes.calculateLottoesResult()
+        lottoes.calculateLottoesResult(winningNumbers, bonusNumber)
 
         // when
         val result = lottoes.getProfitRate()

@@ -24,7 +24,7 @@ class InputValidator {
         return isValid
     }
 
-    fun validateBonusNumber(bonusNumber: Int, numbers: List<Int>): Boolean {
+    fun validateBonusNumber(bonusNumber: Int, numbers: Set<Int>): Boolean {
         var isValid = validateNumber(bonusNumber)
         if (isValid) {
             isValid = validateDuplicate(bonusNumber, numbers)
@@ -40,7 +40,7 @@ class InputValidator {
         }
     }
 
-    internal fun validateDuplicate(bonusNumber: Int, numbers: List<Int>): Boolean {
+    internal fun validateDuplicate(bonusNumber: Int, numbers: Set<Int>): Boolean {
         return executeSafelyAndPrintException {
             require(!numbers.contains(bonusNumber)) {
                 INVALID_DUPLICATE_NUMBER

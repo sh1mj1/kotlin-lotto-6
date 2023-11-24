@@ -1,6 +1,6 @@
 package lotto.view
 
-import lotto.model.Lotto
+import lotto.model.Lottoes
 import lotto.model.WinningRank
 
 class OutputView {
@@ -10,9 +10,10 @@ class OutputView {
 
     fun inputLottoNumbersPrompt() = println("\n$INPUT_LOTTO_NUMBERS_PROMPT")
 
-    fun lottoNumbers(lottoes: List<Lotto>) = lottoes.forEach {
+    /*fun lottoNumbers(lottoes: List<Lotto>) = lottoes.forEach {
         println(it.toString())
-    }
+    }*/
+    fun lottoNumbers(lottoes: Lottoes) = println(lottoes)
 
     fun inputBonusNumberPrompt() = println("\n$INPUT_BONUS_NUMBER_PROMPT")
 

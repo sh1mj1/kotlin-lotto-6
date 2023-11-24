@@ -19,7 +19,7 @@ class Lotto(private val numbers: List<Int>) {
     }
 
     // TODO: 추가 기능 구현
-    fun calculateMatchingCount(inputNumbers: Set<Int>): Int = numbers.count { it in inputNumbers }
+    fun calculateMatchingCount(winningNumbers: Set<Int>): Int = numbers.count { it in winningNumbers }
 
     fun containBonusNumber(bonusNumber: Int): Boolean = numbers.contains(bonusNumber)
 

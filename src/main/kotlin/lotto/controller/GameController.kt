@@ -16,10 +16,12 @@ class GameController {
         buyLottoes()
         showLottoInformation()
 
-        val inputNumbers = insertLottoNumbers()
-        insertBonusNumber(inputNumbers)
+        val winningNumbers = getValidWinningNumbers()
+        val bonusNumber = getValidBonusNumber(winningNumbers)
+        val winningResult = lottoes.calculateLottoesResult(
+            winningNumbers, bonusNumber
+        )
 
-        val winningResult = lottoes.calculateLottoesResult()
         showLottoResult(winningResult)
     }
 
@@ -35,29 +37,29 @@ class GameController {
 
     private fun showLottoInformation() {
         outputView.lottoNumbersPrompt(lottoes.lottoTicketCount)
-        outputView.lottoNumbers(lottoes.lottoes)
+        outputView.lottoNumbers(lottoes)
     }
 
-    private fun insertLottoNumbers(): List<Int> {
+    private fun getValidWinningNumbers(): Set<Int> {
         var isValid: Boolean
-        var inputNumbers: List<Int>
+        var winningNumbers: List<Int>
         do {
             outputView.inputLottoNumbersPrompt()
-            inputNumbers = inputView.lottoNumbers()
-            isValid = validator.validateLottoNumbers(inputNumbers)
-            lottoes.userNumbers = inputNumbers.toSet()
+            winningNumbers = inputView.lottoNumbers()
+            isValid = validator.validateLottoNumbers(winningNumbers)
         } while (!isValid)
-        return inputNumbers
+        return winningNumbers.toSet()
     }
 
-    private fun insertBonusNumber(inputNumbers: List<Int>) {
+    private fun getValidBonusNumber(winningNumbers: Set<Int>): Int {
         var isValid: Boolean
+        var bonusNumber: Int
         do {
             outputView.inputBonusNumberPrompt()
-            val bonusNumber = inputView.bonusLottoNumber()
-            isValid = validator.validateBonusNumber(bonusNumber, inputNumbers)
-            lottoes.bonusNumber = bonusNumber
+            bonusNumber = inputView.bonusLottoNumber()
+            isValid = validator.validateBonusNumber(bonusNumber, winningNumbers)
         } while (!isValid)
+        return bonusNumber
     }
 
 

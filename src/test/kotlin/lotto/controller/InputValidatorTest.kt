@@ -41,7 +41,7 @@ class InputValidatorTest {
 
     @ParameterizedTest
     @MethodSource("provideNormalBonusANDNumbers")
-    fun `보너스 번호가 기존 로또와 중복이 없으면 true 를 리턴한다`(bonusNumber: Int, numbers: List<Int>) {
+    fun `보너스 번호가 기존 로또와 중복이 없으면 true 를 리턴한다`(bonusNumber: Int, numbers: Set<Int>) {
         val result = validator.validateDuplicate(bonusNumber, numbers)
         assertThat(result).isEqualTo(true)
     }
@@ -71,7 +71,7 @@ class InputValidatorTest {
 
     @ParameterizedTest
     @MethodSource("provideDuplicateNumber")
-    fun `보너스 번호가 기존 로또와 중복이 있으면 false 를 리턴한다`(bonusNumber: Int, numbers: List<Int>) {
+    fun `보너스 번호가 기존 로또와 중복이 있으면 false 를 리턴한다`(bonusNumber: Int, numbers: Set<Int>) {
         val result = validator.validateDuplicate(bonusNumber, numbers)
         assertThat(result).isEqualTo(false)
     }
@@ -88,9 +88,9 @@ class InputValidatorTest {
 
         @JvmStatic
         fun provideDuplicateNumber(): Stream<Arguments> = Stream.of(
-            Arguments.of(1, listOf(1, 2, 3, 4, 5, 6)),
-            Arguments.of(2, listOf(1, 2, 3, 4, 5, 6)),
-            Arguments.of(3, listOf(1, 2, 3, 4, 5, 6)),
+            Arguments.of(1, setOf(1, 2, 3, 4, 5, 6)),
+            Arguments.of(2, setOf(1, 2, 3, 4, 5, 6)),
+            Arguments.of(3, setOf(1, 2, 3, 4, 5, 6)),
         )
 
 
@@ -103,9 +103,9 @@ class InputValidatorTest {
 
         @JvmStatic
         fun provideNormalBonusANDNumbers(): Stream<Arguments> = Stream.of(
-            Arguments.of(7, listOf(1, 2, 3, 4, 5, 6)),
-            Arguments.of(11, listOf(1, 2, 33, 41, 15, 26)),
-            Arguments.of(31, listOf(11, 22, 33, 14, 45, 36)),
+            Arguments.of(7, setOf(1, 2, 3, 4, 5, 6)),
+            Arguments.of(11, setOf(1, 2, 33, 41, 15, 26)),
+            Arguments.of(31, setOf(11, 22, 33, 14, 45, 36)),
         )
     }
 }

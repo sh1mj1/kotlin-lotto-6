@@ -1,9 +1,6 @@
 package lotto.model
 
 class Lottoes(private val paymentAmount: Int) {
-
-    var userNumbers: Set<Int> = setOf()
-    var bonusNumber: Int = 0
     var lottoes: MutableList<Lotto> = mutableListOf()
 
     val lottoTicketCount: Int = paymentAmount / 1000
@@ -17,10 +14,12 @@ class Lottoes(private val paymentAmount: Int) {
         }
     }
 
-
-    fun calculateLottoesResult(): Map<WinningRank, Int> {
+    fun calculateLottoesResult(
+        winningNumbers: Set<Int>,
+        bonusNumber: Int
+    ): Map<WinningRank, Int> {
         lottoes.forEach {
-            val numMatchCount = it.calculateMatchingCount(userNumbers)
+            val numMatchCount = it.calculateMatchingCount(winningNumbers)
             val bonusNumberMatch = it.containBonusNumber(bonusNumber)
             val result = it.calculateLottoRank(numMatchCount, bonusNumberMatch)
 
@@ -40,4 +39,9 @@ class Lottoes(private val paymentAmount: Int) {
             rank.prize * count
         }
 
+    override fun toString(): String {
+        return lottoes.joinToString("\n") {
+            it.toString()
+        }
+    }
 }
