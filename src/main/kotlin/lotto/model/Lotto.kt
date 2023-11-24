@@ -35,7 +35,6 @@ class Lotto(private val numbers: List<Int>) {
         return conditions.firstOrNull { it.first }?.second ?: WinningRank.FAILURE
     }
 
-    override fun toString(): String {
-        return numbers.toString()
-    }
+    override fun toString(): String = numbers.toString()
+
 }

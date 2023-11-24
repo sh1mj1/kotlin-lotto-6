@@ -1,10 +1,9 @@
 package lotto.model
 
-class Lottoes(private val paymentAmount: Int) {
-    var lottoes: MutableList<Lotto> = mutableListOf()
-
-    val lottoTicketCount: Int = paymentAmount / 1000
+class Lottoes(lottoTicketCount: Int) {
     private var lottoGenerator: LottoGenerator = LottoGenerator()
+
+    var lottoes: MutableList<Lotto> = mutableListOf()
     private var lottoesResult: MutableMap<WinningRank, Int> =
         WinningRank.values().associateWith { 0 }.toMutableMap()
 
@@ -14,7 +13,7 @@ class Lottoes(private val paymentAmount: Int) {
         }
     }
 
-    fun calculateLottoesResult(
+    fun calculatedLottoesResult(
         winningNumbers: Set<Int>,
         bonusNumber: Int
     ): Map<WinningRank, Int> {
@@ -27,17 +26,6 @@ class Lottoes(private val paymentAmount: Int) {
         }
         return lottoesResult
     }
-
-    fun getProfitRate(): Double {
-        val profitAmount = calculateTotalProfit()
-        val profit = Profit(profitAmount)
-        return profit.calculateProfitRate(paymentAmount)
-    }
-
-    internal fun calculateTotalProfit(): Int =
-        lottoesResult.entries.sumOf { (rank, count) ->
-            rank.prize * count
-        }
 
     override fun toString(): String {
         return lottoes.joinToString("\n") {

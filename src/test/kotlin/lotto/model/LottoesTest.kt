@@ -22,7 +22,7 @@ class LottoesTest {
         )
 
         // when
-        val result = lottoes.calculateLottoesResult(winningNumbers, bonusNumber)
+        val result = lottoes.calculatedLottoesResult(winningNumbers, bonusNumber)
         expectedLottoes = mapOf(
             WinningRank.FIRST to 1,
             WinningRank.SECOND to 1,
@@ -34,51 +34,5 @@ class LottoesTest {
 
         // then
         assertThat(result).isEqualTo(expectedLottoes)
-    }
-
-    @Test
-    fun `구매한 모든 로또의 당첨 수익을 계산한다`() {
-        // given
-        val lottoes = Lottoes(6000)
-        val winningNumbers = setOf(1, 2, 3, 4, 5, 6)
-        val bonusNumber = 7
-        lottoes.lottoes = mutableListOf(
-            Lotto(listOf(1, 2, 3, 4, 5, 6)),
-            Lotto(listOf(1, 2, 3, 4, 5, 7)),
-            Lotto(listOf(1, 2, 3, 11, 12, 14)),
-            Lotto(listOf(11, 22, 33, 2, 1, 3)),
-            Lotto(listOf(11, 22, 33, 17, 27, 37)),
-            Lotto(listOf(11, 22, 33, 8, 27, 9))
-        )
-        lottoes.calculateLottoesResult(winningNumbers, bonusNumber)
-
-        // when
-        val result = lottoes.calculateTotalProfit()
-
-        // then
-        assertThat(result).isEqualTo(2_030_010_000)
-    }
-
-    @Test
-    fun `구매한 모든 로또의 수익률을 계산한다`() {
-        // given
-        val lottoes = Lottoes(6000)
-        val winningNumbers = setOf(1, 2, 3, 4, 5, 6)
-        val bonusNumber = 7
-        lottoes.lottoes = mutableListOf(
-            Lotto(listOf(1, 2, 3, 4, 5, 6)),
-            Lotto(listOf(1, 2, 3, 4, 5, 7)),
-            Lotto(listOf(1, 2, 3, 11, 12, 14)),
-            Lotto(listOf(11, 22, 33, 2, 1, 3)),
-            Lotto(listOf(11, 22, 33, 17, 27, 37)),
-            Lotto(listOf(11, 22, 33, 8, 27, 9))
-        )
-        lottoes.calculateLottoesResult(winningNumbers, bonusNumber)
-
-        // when
-        val result = lottoes.getProfitRate()
-
-        // then
-        assertThat(result).isEqualTo(33833500.0)
     }
 }

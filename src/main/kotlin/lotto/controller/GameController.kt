@@ -1,6 +1,8 @@
 package lotto.controller
 
+import lotto.model.LottoSeller
 import lotto.model.Lottoes
+import lotto.model.ProfitCalculator
 import lotto.model.WinningRank
 import lotto.view.InputView
 import lotto.view.OutputView
@@ -11,6 +13,10 @@ class GameController {
     private val outputView = OutputView()
     private val validator = InputValidator()
     private lateinit var lottoes: Lottoes
+    private lateinit var lottoSeller: LottoSeller
+
+    private var payment = 0
+    private var lottoTicketCounts = 0
 
     fun start() {
         buyLottoes()
@@ -18,25 +24,28 @@ class GameController {
 
         val winningNumbers = getValidWinningNumbers()
         val bonusNumber = getValidBonusNumber(winningNumbers)
-        val winningResult = lottoes.calculateLottoesResult(
-            winningNumbers, bonusNumber
-        )
 
+        val winningResult = lottoes.calculatedLottoesResult(winningNumbers, bonusNumber)
         showLottoResult(winningResult)
+
+        val profitCalculator = ProfitCalculator(winningResult, payment)
+        outputView.totalProfitRate(profitCalculator.getProfitRate())
     }
 
     private fun buyLottoes() {
         var isValid: Boolean
         do {
             outputView.purchasePrompt()
-            val payment = inputView.purchaseAmount()
+            payment = inputView.purchaseAmount()
             isValid = validator.validatePurchaseAmount(payment)
-            lottoes = Lottoes(payment)
+            lottoSeller = LottoSeller(payment)
+            lottoTicketCounts = lottoSeller.calculatedLottoTicketCount()
+            lottoes = Lottoes(lottoTicketCounts)
         } while (!isValid)
     }
 
     private fun showLottoInformation() {
-        outputView.lottoNumbersPrompt(lottoes.lottoTicketCount)
+        outputView.lottoNumbersPrompt(lottoTicketCounts)
         outputView.lottoNumbers(lottoes)
     }
 
@@ -66,6 +75,5 @@ class GameController {
     private fun showLottoResult(winningResult: Map<WinningRank, Int>) {
         outputView.winningResultPrompt()
         outputView.winningResult(winningResult)
-        outputView.totalProfitRate(lottoes.getProfitRate())
     }
 }
