@@ -10,26 +10,21 @@ class OutputView {
 
     fun inputLottoNumbersPrompt() = println("\n$INPUT_LOTTO_NUMBERS_PROMPT")
 
-    /*fun lottoNumbers(lottoes: List<Lotto>) = lottoes.forEach {
-        println(it.toString())
-    }*/
     fun lottoNumbers(lottoes: Lottoes) = println(lottoes)
 
     fun inputBonusNumberPrompt() = println("\n$INPUT_BONUS_NUMBER_PROMPT")
 
     fun winningResultPrompt() = print(WINNING_RESULT_PROMPT)
 
-    fun winningResult(lottoesResult: Map<WinningRank, Int>) {
-        println(
-            """
-                ${WinningRank.FIFTH.content}$HYPHEN${lottoesResult[WinningRank.FIFTH]}$COUNT_DESCRIPTION
-                ${WinningRank.FOURTH.content}$HYPHEN${lottoesResult[WinningRank.FOURTH]}$COUNT_DESCRIPTION
-                ${WinningRank.THIRD.content}$HYPHEN${lottoesResult[WinningRank.THIRD]}$COUNT_DESCRIPTION
-                ${WinningRank.SECOND.content}$HYPHEN${lottoesResult[WinningRank.SECOND]}$COUNT_DESCRIPTION
-                ${WinningRank.FIRST.content}$HYPHEN${lottoesResult[WinningRank.FIRST]}$COUNT_DESCRIPTION
-            """.trimIndent()
-        )
-    }
+    fun winningResult(lottoesResult: Map<WinningRank, Int>) = println(
+        """
+            ${WinningRank.FIFTH.content}$HYPHEN${lottoesResult[WinningRank.FIFTH]}$COUNT_DESCRIPTION
+            ${WinningRank.FOURTH.content}$HYPHEN${lottoesResult[WinningRank.FOURTH]}$COUNT_DESCRIPTION
+            ${WinningRank.THIRD.content}$HYPHEN${lottoesResult[WinningRank.THIRD]}$COUNT_DESCRIPTION
+            ${WinningRank.SECOND.content}$HYPHEN${lottoesResult[WinningRank.SECOND]}$COUNT_DESCRIPTION
+            ${WinningRank.FIRST.content}$HYPHEN${lottoesResult[WinningRank.FIRST]}$COUNT_DESCRIPTION
+        """.trimIndent()
+    )
 
     fun totalProfitRate(profitRate: Double) =
         println("$PROFIT_RATE_DESCRIPTION $profitRate$PERCENTAGE")

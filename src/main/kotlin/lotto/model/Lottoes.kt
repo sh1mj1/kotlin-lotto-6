@@ -17,7 +17,7 @@ class Lottoes(
             val bonusNumberMatch = it.containBonusNumber(bonusNumber)
             val result = it.calculateLottoRank(numMatchCount, bonusNumberMatch)
 
-            lottoesResult[result] = (lottoesResult[result] ?: 0) + 1
+            lottoesResult[result]?.plus(1)
         }
         return lottoesResult
     }

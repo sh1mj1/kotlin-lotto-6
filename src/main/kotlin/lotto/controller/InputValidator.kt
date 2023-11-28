@@ -3,14 +3,12 @@ package lotto.controller
 import lotto.config.GameConfig.END_NUMBER
 import lotto.config.GameConfig.LOTTO_COUNTS
 import lotto.config.GameConfig.START_NUMBER
-import lotto.util.ExceptionPrinter.executeSafelyAndPrintException
+import lotto.util.executeSafelyAndPrintException
 
 class InputValidator {
-    fun validatePurchaseAmount(input: Int): Boolean {
-        return executeSafelyAndPrintException {
-            require(input > 0 && input % 1000 == 0) {
-                INVALID_PURCHASE_AMOUNT
-            }
+    fun validatePurchaseAmount(input: Int) = executeSafelyAndPrintException {
+        require(input > 0 && input % 1000 == 0) {
+            INVALID_PURCHASE_AMOUNT
         }
     }
 
@@ -32,27 +30,21 @@ class InputValidator {
         return isValid
     }
 
-    internal fun validateNumber(number: Int): Boolean {
-        return executeSafelyAndPrintException {
-            require(number in (START_NUMBER..END_NUMBER)) {
-                INVALID_LOTTO_NUMBER
-            }
+    internal fun validateNumber(number: Int): Boolean = executeSafelyAndPrintException {
+        require(number in (START_NUMBER..END_NUMBER)) {
+            INVALID_LOTTO_NUMBER
         }
     }
 
-    internal fun validateDuplicate(bonusNumber: Int, numbers: Set<Int>): Boolean {
-        return executeSafelyAndPrintException {
-            require(!numbers.contains(bonusNumber)) {
-                INVALID_DUPLICATE_NUMBER
-            }
+    internal fun validateDuplicate(bonusNumber: Int, numbers: Set<Int>) = executeSafelyAndPrintException {
+        require(!numbers.contains(bonusNumber)) {
+            INVALID_DUPLICATE_NUMBER
         }
     }
 
-    private fun validateLottoNumberCount(numbers: List<Int?>): Boolean {
-        return executeSafelyAndPrintException {
-            require(numbers.size == LOTTO_COUNTS) {
-                INVALID_LOTTO_NUMBERS_COUNT
-            }
+    private fun validateLottoNumberCount(numbers: List<Int?>): Boolean = executeSafelyAndPrintException {
+        require(numbers.size == LOTTO_COUNTS) {
+            INVALID_LOTTO_NUMBERS_COUNT
         }
     }
 
