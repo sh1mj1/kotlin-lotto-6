@@ -30,4 +30,14 @@ class LottoTest {
         assertThat(exception.message).isEqualTo("각 로또 번호는 1~45 사이입니다.")
     }
 
+    @Test
+    fun `다른 로또 번호와 일치하는 번호의 수를 얻는다`() {
+        val lotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
+        val lotto2 = Lotto(listOf(1, 3, 5, 7, 9, 11))
+
+        val result = lotto.countMatchingNumber(lotto2)
+
+        assertThat(result).isEqualTo(3)
+    }
+
 }

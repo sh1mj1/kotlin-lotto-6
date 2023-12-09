@@ -12,4 +12,6 @@ data class Lotto(private val numbers: List<Int>) {
     }
 
     fun notHaveBonusNumber(bonusNumber: BonusNumber): Boolean = numbers.all { it != bonusNumber.number }
+
+    fun countMatchingNumber(lotto: Lotto): Int = numbers.count { lotto.numbers.contains(it) }
 }
