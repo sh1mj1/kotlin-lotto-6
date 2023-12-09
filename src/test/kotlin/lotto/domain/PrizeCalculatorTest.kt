@@ -2,7 +2,7 @@ package lotto.domain
 
 import lotto.domain.data.BonusNumber
 import lotto.domain.data.Lotto
-import lotto.domain.data.PrizeCondition
+import lotto.domain.data.Prize
 import lotto.domain.data.WinningLotto
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -23,7 +23,7 @@ class PrizeCalculatorTest {
         val winningLotto = WinningLotto(Lotto(listOf(1, 2, 3, 4, 5, 6)), BonusNumber(7))
 
         val result = prizeCalculator.calculatePrize(lotto, winningLotto)
-        assertThat(result).isEqualTo(PrizeCondition.FIRST)
+        assertThat(result).isEqualTo(Prize.FIRST)
     }
 
     @Test
@@ -32,7 +32,7 @@ class PrizeCalculatorTest {
         val winningLotto = WinningLotto(Lotto(listOf(1, 2, 3, 4, 5, 7)), BonusNumber(6))
 
         val result = prizeCalculator.calculatePrize(lotto, winningLotto)
-        assertThat(result).isEqualTo(PrizeCondition.SECOND)
+        assertThat(result).isEqualTo(Prize.SECOND)
     }
 
     @Test
@@ -41,7 +41,7 @@ class PrizeCalculatorTest {
         val winningLotto = WinningLotto(Lotto(listOf(1, 2, 3, 14, 15, 17)), BonusNumber(16))
 
         val result = prizeCalculator.calculatePrize(lotto, winningLotto)
-        assertThat(result).isEqualTo(PrizeCondition.FIFTH)
+        assertThat(result).isEqualTo(Prize.FIFTH)
     }
 
     @Test
@@ -50,6 +50,6 @@ class PrizeCalculatorTest {
         val winningLotto = WinningLotto(Lotto(listOf(11, 12, 13, 14, 15, 17)), BonusNumber(6))
 
         val result = prizeCalculator.calculatePrize(lotto, winningLotto)
-        assertThat(result).isEqualTo(PrizeCondition.FAILURE)
+        assertThat(result).isEqualTo(Prize.FAILURE)
     }
 }
