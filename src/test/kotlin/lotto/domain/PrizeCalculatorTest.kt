@@ -30,9 +30,27 @@ class PrizeCalculatorTest {
     fun `로또 번호와 당첨 번호를 비교해서 2등 상금 얻기`() {
         val lotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
         val winningLotto = WinningLotto(Lotto(listOf(1, 2, 3, 4, 5, 7)), BonusNumber(6))
-
+        // 5개 일치, 보너스번호 일치.
         val result = prizeCalculator.calculatePrize(lotto, winningLotto)
         assertThat(result).isEqualTo(Prize.SECOND)
+    }
+
+    @Test
+    fun `로또 번호와 당첨 번호를 비교해서 3등 상금 얻기`() {
+        val lotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
+        val winningLotto = WinningLotto(Lotto(listOf(1, 2, 3, 4, 5, 7)), BonusNumber(16))
+        // 5개 일치, 보너스번호 일치 안 함
+        val result = prizeCalculator.calculatePrize(lotto, winningLotto)
+        assertThat(result).isEqualTo(Prize.THIRD)
+    }
+
+    @Test
+    fun `로또 번호와 당첨 번호를 비교해서 4등 상금 얻기`() {
+        val lotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
+        val winningLotto = WinningLotto(Lotto(listOf(1, 2, 3, 4, 15, 7)), BonusNumber(16))
+        // 4개 일치, 보너스번호 일치 상관 없음.
+        val result = prizeCalculator.calculatePrize(lotto, winningLotto)
+        assertThat(result).isEqualTo(Prize.FOURTH)
     }
 
     @Test
