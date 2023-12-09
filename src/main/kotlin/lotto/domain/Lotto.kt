@@ -14,4 +14,6 @@ data class Lotto(private val numbers: List<Int>) {
     fun hasBonusNumber(bonusNumber: BonusNumber): Boolean = numbers.any { it == bonusNumber.number }
 
     fun countMatchingNumber(lotto: Lotto): Int = numbers.count { lotto.numbers.contains(it) }
+
+    fun numbersOutput(startChar: Char, endChar: Char) = startChar + numbers.joinToString { it.toString() } + endChar
 }
