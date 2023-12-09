@@ -1,6 +1,6 @@
 package lotto.domain.data
 
-class Lotto(private val numbers: List<Int>) {
+data class Lotto(private val numbers: List<Int>) {
     init {
         require(numbers.size == 6) { "로또의 숫자는 6자리입니다." }
 
@@ -10,4 +10,6 @@ class Lotto(private val numbers: List<Int>) {
             require(it in 1..45) { "각 로또 번호는 1~45 사이입니다." }
         }
     }
+
+    fun notHaveBonusNumber(bonusNumber: BonusNumber): Boolean = numbers.all { it != bonusNumber.number }
 }

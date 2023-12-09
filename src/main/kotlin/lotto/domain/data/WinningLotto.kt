@@ -1,4 +1,8 @@
 package lotto.domain.data
 
-class WinningLotto(val lotto: Lotto, val bonusNumber: BonusNumber) {
+data class WinningLotto(val lotto: Lotto, val bonusNumber: BonusNumber) {
+    init {
+        require(lotto.notHaveBonusNumber(bonusNumber)) { "당첨 번호와 보너스 번호는 같으면 안 됩니다." }
+    }
+
 }
