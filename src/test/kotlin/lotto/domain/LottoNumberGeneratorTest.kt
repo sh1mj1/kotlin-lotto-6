@@ -17,5 +17,4 @@ class LottoNumberGeneratorTest {
     fun `정상적인 랜덤 로또 번호 생성 테스트`() {
         assertDoesNotThrow { lottoNumberGenerator.generated() }
     }
-
 }

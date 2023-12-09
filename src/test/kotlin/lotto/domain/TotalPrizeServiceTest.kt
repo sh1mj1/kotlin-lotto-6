@@ -1,6 +1,9 @@
 package lotto.domain
 
-import lotto.domain.data.*
+import lotto.domain.data.BonusNumber
+import lotto.domain.data.Lotteries
+import lotto.domain.data.Prize
+import lotto.domain.data.WinningLotto
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -1,6 +1,5 @@
 package lotto.domain
 
-import lotto.domain.data.Lotto
 import lotto.domain.data.Prize
 import lotto.domain.data.WinningLotto
 
@@ -15,5 +14,4 @@ class PrizeCalculator {
                     && (it.bonusNumberMatch == hasBonusNumber || it.bonusNumberMatch.not())
         } ?: Prize.FAILURE
     }
-
 }

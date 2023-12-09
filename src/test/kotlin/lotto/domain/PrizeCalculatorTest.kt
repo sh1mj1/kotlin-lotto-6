@@ -1,7 +1,6 @@
 package lotto.domain
 
 import lotto.domain.data.BonusNumber
-import lotto.domain.data.Lotto
 import lotto.domain.data.Prize
 import lotto.domain.data.WinningLotto
 import org.assertj.core.api.Assertions.assertThat

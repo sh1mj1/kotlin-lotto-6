@@ -1,6 +1,6 @@
 package lotto.domain.data
 
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -13,6 +13,6 @@ class BonusNumberTest {
         val exception = assertThrows<IllegalArgumentException> {
             BonusNumber(number)
         }
-        Assertions.assertThat(exception.message).isEqualTo("보너스 번호는 1~45 사이입니다.")
+        assertThat(exception.message).isEqualTo("보너스 번호는 1~45 사이입니다.")
     }
 }
