@@ -1,6 +1,6 @@
 package lotto.domain.data
 
-enum class Prize(val matchingCount: Int, val bonusNumberMatch: Boolean, prize: Int) {
+enum class Prize(val matchingCount: Int, val bonusNumberMatch: Boolean, val prize: Int) {
     FIRST(6, false, 2_000_000_000),
     SECOND(5, true, 30_000_000),
     THIRD(5, false, 1_500_000),
