@@ -17,11 +17,16 @@ class LottoGame(
 ) {
 
     fun start() {
-        val payment = inputView.readPayment()
+        val payment = payForLotteries()
         val lotteries = buyLotteries(payment)
         outputView.showBoughtLottoes(lotteries)
 
         showWinningResult(lotteries, winningLotto(), payment)
+    }
+
+    private fun payForLotteries(): Int {
+        outputView.paymentGuide()
+        return inputView.readPayment()
     }
 
     private fun buyLotteries(payment: Int): Lotteries {
@@ -39,10 +44,16 @@ class LottoGame(
         outputView.showProfitRate(profitRate.calculatedProfitRate(totalPrizes, payment))
     }
 
-    private fun winningLotto(): WinningLotto {
-        val winningNumbers = inputView.readWinningNumbers().toWinningNumbers()
-        val bonusNumber = inputView.readBonusNumber().toBonusNumber()
-        return WinningLotto(winningNumbers, bonusNumber)
+    private fun winningLotto(): WinningLotto = WinningLotto(readWinningNumbers(), readBonusNumber())
+
+    private fun readWinningNumbers(): Lotto {
+        outputView.winningNumbersGuide()
+        return inputView.readWinningNumbers().toWinningNumbers()
+    }
+
+    private fun readBonusNumber(): BonusNumber {
+        outputView.bonusNumberGuide()
+        return inputView.readBonusNumber().toBonusNumber()
     }
 
 }
