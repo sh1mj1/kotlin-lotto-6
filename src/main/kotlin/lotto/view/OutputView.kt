@@ -5,6 +5,10 @@ import lotto.domain.data.Prize
 
 class OutputView {
 
+    fun paymentGuide() = println("구입금액을 입력해주세요.")
+    fun winningNumbersGuide() = println("당첨 번호를 입력해 주세요.")
+    fun bonusNumberGuide() = println("보너스 번호를 입력해 주세요.")
+
     fun showBoughtLottoes(lotteries: Lotteries) {
         println("${lotteries.lottoes.count()}를 구매했습니다.")
         println(lotteries.lottoes.joinToString("\n") {
