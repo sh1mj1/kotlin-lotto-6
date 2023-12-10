@@ -2,6 +2,7 @@ package lotto.controller
 
 import lotto.domain.*
 import lotto.domain.data.BonusNumber
+import lotto.domain.data.Lotteries
 import lotto.domain.data.WinningLotto
 import lotto.view.InputView
 import lotto.view.OutputView
@@ -9,28 +10,39 @@ import lotto.view.OutputView
 class LottoGame(
     val inputView: InputView,
     val outputView: OutputView,
+    val lottoSeller: LottoSeller,
+    val lottoMachine: LottoMachine,
+    val totalPrizeService: TotalPrizeService,
+    val profitRate: ProfitRate,
 ) {
 
     fun start() {
-        val lottoSeller = LottoSeller()
         val payment = inputView.readPayment()
-        val lottoTicketCount = lottoSeller.buyLottoTicket(payment)
-
-        val lottoMachine = LottoMachine()
-        val lotteries = lottoMachine.generateLottoes(lottoTicketCount)
+        val lotteries = buyLotteries(payment)
         outputView.showBoughtLottoes(lotteries)
 
+        showWinningResult(lotteries, winningLotto(), payment)
+    }
+
+    private fun buyLotteries(payment: Int): Lotteries {
+        val lottoTicketCount = lottoSeller.buyLottoTicket(payment)
+        return lottoMachine.generateLottoes(lottoTicketCount)
+    }
+
+    private fun showWinningResult(
+        lotteries: Lotteries,
+        winningLotto: WinningLotto,
+        payment: Int,
+    ) {
+        val totalPrizes = totalPrizeService.calculateTotalPrizes(lotteries, winningLotto)
+        outputView.showWinningPrizes(totalPrizes)
+        outputView.showProfitRate(profitRate.calculatedProfitRate(totalPrizes, payment))
+    }
+
+    private fun winningLotto(): WinningLotto {
         val winningNumbers = inputView.readWinningNumbers().toWinningNumbers()
         val bonusNumber = inputView.readBonusNumber().toBonusNumber()
-        val winningLotto = WinningLotto(winningNumbers, bonusNumber)
-
-        val totalPrizeService = TotalPrizeService(PrizeCalculator())
-        val totalPrizes = totalPrizeService.calculateTotalPrizes(lotteries, winningLotto)
-
-        outputView.showWinningPrizes(totalPrizes)
-
-        val profitRate = ProfitRate()
-        outputView.showProfitRate(profitRate.calculatedProfitRate(totalPrizes, payment))
+        return WinningLotto(winningNumbers, bonusNumber)
     }
 
 }
